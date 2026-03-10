@@ -1,16 +1,17 @@
-# Template
+# Shopping Cart
 
 [Live Demo](#)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
 
-This is a project from [The Odin Project](https://theodinproject.com): [Project: ](#).
+This is a project from [The Odin Project](https://theodinproject.com): [Project: Shopping Cart](https://www.theodinproject.com/lessons/node-path-react-new-shopping-cart). This is where we created an Amazon clone, only focusing on the front-end, with the emphasis on getting used to React routing and testing. The products in this application will be fetch from the [FakeStore API](https://fakestoreapi.com/).
 
 ## Learning Points
 
--
--
+- Understanding the concepts of Client Site Routing and how to build Single-Page Applications (SPAs) using React Router
+- Understanding the implementation of Unit and Integration Testing of React Applications using Vitest and the React Testing Library
+- Reinforcing concepts on how to effectively fetch API data in React applications
 
 ## Tech Stack
 
@@ -40,7 +41,7 @@ Getting started on running the webpack server to your localhost, localhost:8080
 1. Cloning the repository
 
 ```sh
-git clone git@github.com:JohnFerrancol/XX.git
+git clone git@github.com:JohnFerrancol/shopping-cart.git
 ```
 
 2. Installing npm packages
@@ -59,5 +60,6 @@ npm run dev
 
 ## Roadmap
 
-- [ ] XXX
-- [ ] XXX
+- [ ] Create routes for the Shopping Cart Application
+- [ ] Style the webpage and populate the shop page with products from FakeStore API
+- [ ] Implement the logic for adding items to the cart
