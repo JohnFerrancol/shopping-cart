@@ -44,10 +44,10 @@ Getting started on running the webpack server to your localhost, localhost:8080
 git clone git@github.com:JohnFerrancol/shopping-cart.git
 ```
 
-2. Installing npm packages
+2. Navigate to the shopping cart folder and install npm packages
 
 ```sh
-npm install
+cd shopping-cart && npm install
 ```
 
 3. Running the development server
