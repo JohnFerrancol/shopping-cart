@@ -8,7 +8,7 @@ const Navbar = ({ noOfItems }) => {
       <NavLink
         route="/"
         content={
-          <button className="font-bold text-2xl hover:cursor-pointer flex items-center gap-2">
+          <button className="font-bold text-3xl hover:cursor-pointer flex items-center gap-2">
             <PiBagFill className="text-white" size={40} />
             Fake Store
           </button>

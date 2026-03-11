@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 
 const useShop = () => {
   const [shopItemsList, setShopItemsList] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const categories = ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"];
+
   useEffect(() => {
     const fetchShopItemsData = async () => {
       try {
@@ -62,6 +66,14 @@ const useShop = () => {
     );
   };
 
+  const handleSelectedCategory = (categoryClick) => {
+    setSelectedCategory(categoryClick);
+  };
+
+  const filterCategoryItemsList =
+    selectedCategory === 'all'
+      ? shopItemsList
+      : shopItemsList.filter((item) => item.category === selectedCategory);
   const cartItemsList = shopItemsList.filter((item) => item.addedToCart);
   const totalItems = cartItemsList.reduce((acc, currentValue) => acc + currentValue.quantity, 0);
   const totalCost = cartItemsList.reduce(
@@ -77,6 +89,10 @@ const useShop = () => {
     totalCost,
     toggleAddToCart,
     updateQuantity,
+    categories,
+    selectedCategory,
+    handleSelectedCategory,
+    filterCategoryItemsList,
   };
 };
 

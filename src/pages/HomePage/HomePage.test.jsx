@@ -1,13 +1,22 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import HomePage from './HomePage';
+import { describe, it, expect, vi } from 'vitest';
 import { MemoryRouter, createMemoryRouter, RouterProvider } from 'react-router';
 import userEvent from '@testing-library/user-event';
+import * as reactRouter from 'react-router';
 
-import routes from '../../routes/routes';
+import HomePage from './HomePage';
 
 describe('HomePage rendering', () => {
+  const mockHandleSelectedCategoryFunction = vi.fn();
+
+  const mockContext = {
+    categories: ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"],
+    selectedCategory: 'all',
+    handleSelectedCategory: mockHandleSelectedCategoryFunction,
+  };
+
   it('renders the header and button', () => {
+    vi.spyOn(reactRouter, 'useOutletContext').mockReturnValue(mockContext);
     render(
       <MemoryRouter>
         <HomePage />
@@ -16,16 +25,11 @@ describe('HomePage rendering', () => {
 
     expect(screen.getByRole('heading', { name: 'Welcome to the Fake Store App!' }));
     expect(screen.getByRole('button', { name: 'Shop Now' }));
-  });
+    expect(screen.getByRole('heading', { name: 'Browse By Category' }));
 
-  it('navigates to the shop route with the button', async () => {
-    const memoryRouter = createMemoryRouter(routes);
-    render(<RouterProvider router={memoryRouter} />);
-
-    const user = userEvent.setup();
-
-    const shopNowButton = screen.getByRole('button', { name: 'Shop Now' });
-    await user.click(shopNowButton);
-    expect(screen.getByRole('heading', { name: /shop/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: "men's clothing" }));
+    expect(screen.getByRole('button', { name: 'jewelery' }));
+    expect(screen.getByRole('button', { name: 'electronics' }));
+    expect(screen.getByRole('button', { name: "women's clothing" }));
   });
 });

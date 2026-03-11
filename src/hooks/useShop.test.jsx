@@ -111,7 +111,7 @@ describe('useShop - functions and derived values', () => {
       title: 'string4',
       price: 1,
       description: 'string',
-      category: 'string',
+      category: 'electronics',
       image: 'http://example.com',
       quantity: 1,
       addedToCart: false,
@@ -252,5 +252,22 @@ describe('useShop - functions and derived values', () => {
     const newProduct5 = result.current.shopItemsList.find((p) => p.id === 5);
     expect(newProduct5.addedToCart).toBe(false);
     expect(newProduct5.quantity).toBe(1);
+  });
+
+  it('filters items correctly when selecting a category', async () => {
+    const { result } = renderHook(() => useShop());
+
+    // Wait for fetch to finish
+    await waitFor(() => result.current.shopItemsList.length > 0);
+
+    // Change category
+    act(() => {
+      result.current.handleSelectedCategory('electronics');
+    });
+
+    const filteredItems = result.current.filterCategoryItemsList;
+
+    // Ensure every item matches the category
+    expect(filteredItems.every((item) => item.category === 'electronics')).toBe(true);
   });
 });
