@@ -7,12 +7,14 @@ describe('api data fetching', () => {
     // Create mock response
     const mockResponse = [
       {
-        id: 0,
+        id: 1,
         title: 'string',
         price: 0.1,
         description: 'string',
         category: 'string',
         image: 'http://example.com',
+        quantity: 1,
+        addedToCart: false,
       },
     ];
 

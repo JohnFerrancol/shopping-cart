@@ -13,7 +13,15 @@ const useShop = () => {
 
         const productsData = await response.json();
 
-        setShopItemsList(productsData);
+        const newShopItemsList = productsData.map((product) => {
+          return {
+            ...product,
+            quantity: product.id % 10 === 0 ? 2 : 1,
+            addedToCart: product.id % 10 === 0 ? true : false,
+          };
+        });
+
+        setShopItemsList(newShopItemsList);
       } catch (error) {
         console.log(error);
       }
@@ -22,7 +30,14 @@ const useShop = () => {
     fetchShopItemsData();
   }, []);
 
-  return { shopItemsList, setShopItemsList };
+  const cartItemsList = shopItemsList.filter((item) => item.addedToCart);
+  const totalItems = cartItemsList.reduce((acc, currentValue) => acc + currentValue.quantity, 0);
+  const totalCost = cartItemsList.reduce(
+    (acc, currentValue) => acc + currentValue.quantity * currentValue.price,
+    0
+  );
+
+  return { shopItemsList, setShopItemsList, cartItemsList, totalItems, totalCost };
 };
 
 export default useShop;
