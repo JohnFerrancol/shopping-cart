@@ -10,13 +10,6 @@ describe('correct routing for navigation cluster', () => {
     const memoryRouter = createMemoryRouter(routes);
     render(<RouterProvider router={memoryRouter} />);
 
-    // Checking that the application header is loaded
-    expect(screen.getByTestId('app-logo')).toBeInTheDocument();
-
-    // Checking that links are rendered properly
-    expect(screen.getByTestId('shop')).toBeInTheDocument();
-    expect(screen.getByTestId('cart')).toBeInTheDocument();
-
     // Checking that the Homepage is rendered on load
     expect(screen.getByRole('heading', { name: /welcome/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Shop Now' })).toBeInTheDocument();

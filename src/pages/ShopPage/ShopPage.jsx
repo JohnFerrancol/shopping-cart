@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router';
-import ShopProductCard from '../components/ShopProductCard';
+import ShopProductCard from '../../components/ShopProductCard/ShopProductCard';
 
 const ShopPage = () => {
   const { shopItemsList, toggleAddToCart, updateQuantity } = useOutletContext();

@@ -1,4 +1,4 @@
-import NavLink from './NavLink';
+import NavLink from '../NavLink/NavLink';
 import { FaShoppingCart } from 'react-icons/fa';
 import { PiBagFill } from 'react-icons/pi';
 

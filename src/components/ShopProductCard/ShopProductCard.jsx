@@ -1,4 +1,4 @@
-import ChangeQuantityButton from './ChangeQuantityButton';
+import ChangeQuantityButton from '../ChangeQuantityButton/ChangeQuantityButton';
 
 const ShopProductCard = ({
   id,
