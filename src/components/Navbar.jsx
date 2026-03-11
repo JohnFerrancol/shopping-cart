@@ -22,7 +22,7 @@ const Navbar = ({ noOfItems }) => {
           route="/cart"
           content={
             <div className="flex gap-2 items-center">
-              <p>Cart ({noOfItems})</p>
+              <p>Cart {noOfItems > 0 ? `(${noOfItems})` : ''}</p>
               <FaShoppingCart className="text-white" size={30} />
             </div>
           }

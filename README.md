@@ -62,4 +62,4 @@ npm run dev
 
 - [x] Create routes for the Shopping Cart Application
 - [x] Style the webpage and populate the shop page with products from FakeStore API
-- [ ] Implement the logic for adding items to the cart
+- [x] Implement the logic for adding items to the cart

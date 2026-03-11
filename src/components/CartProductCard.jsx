@@ -1,6 +1,16 @@
 import { ImCross } from 'react-icons/im';
+import ChangeQuantityButton from './ChangeQuantityButton';
 
-const CartProductCard = ({ title, category, image, price, quantity }) => {
+const CartProductCard = ({
+  id,
+  title,
+  category,
+  image,
+  price,
+  quantity,
+  toggleAddToCart,
+  updateQuantity,
+}) => {
   return (
     <div className="flex justify-between  px-4 py-5 border border-emerald-100  text-lg text-emerald-900 bg-white rounded-xl shadow-xl">
       <div className="flex gap-4">
@@ -14,11 +24,13 @@ const CartProductCard = ({ title, category, image, price, quantity }) => {
         </div>
       </div>
       <div className="flex flex-col gap-3 items-end">
-        <ImCross className="text-green-500" size={30} />
+        <ImCross onClick={() => toggleAddToCart(id)} className="text-green-500" size={30} />
         <div className="flex h-1/4 items-center">
-          <button className="rounded-l-md px-2 bg-green-500 text-white">-</button>
-          <p className="px-10 border border-gray-300 shadow-lg">{quantity}</p>
-          <button className="rounded-r-md px-2 bg-green-500 text-white">+</button>
+          <ChangeQuantityButton
+            productId={id}
+            updateQuantity={updateQuantity}
+            quantity={quantity}
+          />
         </div>
       </div>
     </div>
