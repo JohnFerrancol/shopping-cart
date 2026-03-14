@@ -20,7 +20,6 @@ const CartProductCard = ({
         <div>
           <h1 className="font-semibold mt-3 text-xl h-15">{title}</h1>
           <h2 className="mt-2 capitalize">{category}</h2>
-          <h1>${price.toFixed(2)}</h1>
         </div>
       </div>
       <div className="flex flex-col gap-3 items-end">
@@ -37,6 +36,9 @@ const CartProductCard = ({
             quantity={quantity}
           />
         </div>
+        <h1 className="text-lg font-semibold">
+          <b>Price</b>: ${price.toFixed(2)}
+        </h1>
       </div>
     </div>
   );
