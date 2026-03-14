@@ -36,9 +36,9 @@ const CartProductCard = ({
             quantity={quantity}
           />
         </div>
-        <h1 className="text-lg font-semibold">
+        <h3 className="text-lg font-semibold">
           <b>Price</b>: ${price.toFixed(2)}
-        </h1>
+        </h3>
       </div>
     </div>
   );

@@ -25,7 +25,10 @@ describe('CartProductCard Component', () => {
     // Checking that the content is rendered correctly based on the props passed
     expect(screen.getByText(productProps.title)).toBeInTheDocument();
     expect(screen.getByText(productProps.category)).toBeInTheDocument();
-    expect(screen.getByText(`$${productProps.price.toFixed(2)}`)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3 })).toContainHTML(
+      `<b>Price</b>: $${productProps.price.toFixed(2)}`
+    );
+
     expect(screen.getByText(productProps.quantity.toString())).toBeInTheDocument();
 
     // Checking that the image is rendered correctly from the source
