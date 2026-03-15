@@ -12,6 +12,7 @@ This is a project from [The Odin Project](https://theodinproject.com): [Project:
 - Understanding the concepts of Client Site Routing and how to build Single-Page Applications (SPAs) using React Router
 - Understanding the implementation of Unit and Integration Testing of React Applications using Vitest and the React Testing Library
 - Reinforcing concepts on how to effectively fetch API data in React applications
+- Refactoring the state management and passing props to a Component through other React hooks like useContext, useReducer, useRef and useMemo
 
 ## Tech Stack
 
@@ -64,3 +65,5 @@ npm run dev
 - [x] Style the webpage and populate the shop page with products from FakeStore API
 - [x] Implement the logic for adding items to the cart
 - [x] Created filters by the categories
+- [ ] Refactor the code using React hooks like useContext, useReducer, useRef and useMemo
+- [ ] 
