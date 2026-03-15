@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useReducer, useState, useEffect } from 'react';
+import shopItemsReducer from './shopItemsReducer';
 
 const useShop = () => {
-  const [shopItemsList, setShopItemsList] = useState([]);
+  // Define a shopItemsList state variable through a reducer
+  const [shopItemsList, dispatch] = useReducer(shopItemsReducer, []);
   const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const categories = ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"];
 
   useEffect(() => {
     const fetchShopItemsData = async () => {
@@ -17,15 +17,17 @@ const useShop = () => {
 
         const productsData = await response.json();
 
-        const newShopItemsList = productsData.map((product) => {
-          return {
-            ...product,
-            quantity: product.id % 10 === 0 ? 2 : 1,
-            addedToCart: product.id % 10 === 0 ? true : false,
-          };
+        // Update the shopItems list by didpatching to the reducer with the data from the api
+        dispatch({
+          type: 'fetch_list',
+          newList: productsData.map((product) => {
+            return {
+              ...product,
+              quantity: product.id % 10 === 0 ? 2 : 1,
+              addedToCart: product.id % 10 === 0 ? true : false,
+            };
+          }),
         });
-
-        setShopItemsList(newShopItemsList);
       } catch (error) {
         console.log(error);
       }
@@ -34,37 +36,30 @@ const useShop = () => {
     fetchShopItemsData();
   }, []);
 
+  // Dispatch the relevant reducer functions
   const toggleAddToCart = (id) => {
-    setShopItemsList((prevList) =>
-      prevList.map((product) =>
-        product.id === id ? { ...product, addedToCart: !product.addedToCart } : product
-      )
-    );
+    dispatch({
+      type: 'toggle-cart',
+      toggledId: id,
+    });
   };
 
   const updateQuantity = (id, delta) => {
-    setShopItemsList((prevList) =>
-      prevList.map((product) => {
-        if (product.id !== id) {
-          return product;
-        }
-        // Handling edge cases when the user wants to decrease the quantity of the item to less than 1
-        if (product.quantity === 1 && delta === -1) {
-          // If the product is already in the cart, remove from the cart. Else, ignore the eventhandler
-          if (product.addedToCart) {
-            return { ...product, addedToCart: false };
-          } else {
-            return product;
-          }
-        } else {
-          return {
-            ...product,
-            quantity: product.quantity + delta,
-          };
-        }
-      })
-    );
+    dispatch({
+      type: 'update-quantity',
+      updatedId: id,
+      delta: delta,
+    });
   };
+
+  const cartItemsList = shopItemsList.filter((item) => item.addedToCart);
+  const totalItems = cartItemsList.reduce((acc, currentValue) => acc + currentValue.quantity, 0);
+  const totalCost = cartItemsList.reduce(
+    (acc, currentValue) => acc + currentValue.quantity * currentValue.price,
+    0
+  );
+
+  const categories = ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"];
 
   const handleSelectedCategory = (categoryClick) => {
     setSelectedCategory(categoryClick);
@@ -74,16 +69,9 @@ const useShop = () => {
     selectedCategory === 'all'
       ? shopItemsList
       : shopItemsList.filter((item) => item.category === selectedCategory);
-  const cartItemsList = shopItemsList.filter((item) => item.addedToCart);
-  const totalItems = cartItemsList.reduce((acc, currentValue) => acc + currentValue.quantity, 0);
-  const totalCost = cartItemsList.reduce(
-    (acc, currentValue) => acc + currentValue.quantity * currentValue.price,
-    0
-  );
 
   return {
     shopItemsList,
-    setShopItemsList,
     cartItemsList,
     totalItems,
     totalCost,
