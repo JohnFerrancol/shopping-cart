@@ -223,7 +223,7 @@ describe('useShop - functions and derived values', () => {
     expect(newProduct3.quantity).toBe(1);
   });
 
-  it('does not do anything when subtracting quantity of 1 and the item is not added in cart', async () => {
+  it('does not do anything when subtracting quantity of 1 for when added to cart is true', async () => {
     const { result } = renderHook(() => useShop());
 
     // Wait for initial fetch
@@ -238,7 +238,7 @@ describe('useShop - functions and derived values', () => {
     expect(newProduct4.quantity).toBe(1);
   });
 
-  it('removes items from cart when substracting quantity of 1', async () => {
+  it('does not do anything when subtracting quantity of 1 for when addedToCart is true', async () => {
     const { result } = renderHook(() => useShop());
 
     // Wait for initial fetch
@@ -250,7 +250,6 @@ describe('useShop - functions and derived values', () => {
 
     // Check that the product with id 5's quantity remains at 1 and the addToCart is now false
     const newProduct5 = result.current.shopItemsList.find((p) => p.id === 5);
-    expect(newProduct5.addedToCart).toBe(false);
     expect(newProduct5.quantity).toBe(1);
   });
 

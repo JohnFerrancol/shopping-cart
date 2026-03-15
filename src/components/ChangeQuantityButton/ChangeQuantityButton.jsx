@@ -1,15 +1,21 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import ShopContext from '../../context/ShopContext';
 
 const ChangeQuantityButton = ({ productId, quantity }) => {
   const { updateQuantity } = useContext(ShopContext);
+  const buttonRef = useRef(null);
+
+  const handleMinus = () => {
+    if (quantity === 1) {
+      buttonRef.current.classList.add('animate-horizontal-vibration');
+      setTimeout(() => buttonRef.current.classList.remove('animate-horizontal-vibration'), 400);
+    }
+    updateQuantity(productId, -1);
+  };
 
   return (
-    <>
-      <button
-        onClick={() => updateQuantity(productId, -1)}
-        className="rounded-l-md px-2 bg-green-500 text-white"
-      >
+    <div className="flex" ref={buttonRef}>
+      <button onClick={handleMinus} className="rounded-l-md px-2 bg-green-500 text-white">
         -
       </button>
       <p className="px-10 border border-gray-300 shadow-lg">{quantity}</p>
@@ -19,7 +25,7 @@ const ChangeQuantityButton = ({ productId, quantity }) => {
       >
         +
       </button>
-    </>
+    </div>
   );
 };
 

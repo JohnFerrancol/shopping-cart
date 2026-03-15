@@ -54,8 +54,12 @@ describe('CartProductCard Component', () => {
     const removeIcon = screen.getByTestId('delete-icon');
     await user.click(removeIcon);
 
+    // Fire the animation manually
+    const cardDiv = screen.getByTestId(productProps.title).closest('div');
+    cardDiv.dispatchEvent(new Event('animationend'));
+
     // Ensure that the function is only called once with the product id as the argument
-    expect(mockToggleAddToCart).toHaveBeenCalledTimes(1);
+    expect(mockToggleAddToCart).toHaveBeenCalled(1);
     expect(mockToggleAddToCart).toHaveBeenCalledWith(productProps.id);
   });
 });

@@ -17,12 +17,8 @@ const shopItemsReducer = (state, action) => {
         }
         // Handling edge cases when the user wants to decrease the quantity of the item to less than 1
         if (product.quantity === 1 && action.delta === -1) {
-          // If the product is already in the cart, remove from the cart. Else, ignore the eventhandler
-          if (product.addedToCart) {
-            return { ...product, addedToCart: false };
-          } else {
-            return product;
-          }
+          // Do nothing and show the shaking animation to the user
+          return product;
         } else {
           return {
             ...product,

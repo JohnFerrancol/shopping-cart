@@ -15,9 +15,7 @@ const ShopProductCard = ({ id, title, category, image, price, quantity, addedToC
       <hr className="my-3 border-emerald-900 w-full" />
       <h1>${price.toFixed(2)}</h1>
       <div className="mt-3 px-15 w-full flex justify-center gap-5 items-center">
-        <div className="flex">
-          <ChangeQuantityButton productId={id} quantity={quantity} />
-        </div>
+        <ChangeQuantityButton productId={id} quantity={quantity} addedToCart={addedToCart} />
 
         <button
           onClick={() => toggleAddToCart(id)}
