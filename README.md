@@ -66,4 +66,4 @@ npm run dev
 - [x] Implement the logic for adding items to the cart
 - [x] Created filters by the categories
 - [ ] Refactor the code using React hooks like useContext, useReducer, useRef and useMemo
-- [ ] 
+
