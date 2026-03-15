@@ -1,12 +1,17 @@
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import ShopContext from '../../context/ShopContext';
 import NavLink from '../../components/NavLink/NavLink';
 
 const HomePage = () => {
   const { categories, handleSelectedCategory } = useContext(ShopContext);
+  const homePageRef = useRef(null);
+
+  useEffect(() => {
+    homePageRef.current.classList.add('animate-fade-in-up', 'animate-delay-300');
+  }, []);
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center gap-8">
+    <div ref={homePageRef} className="flex-1 flex flex-col items-center justify-center gap-8">
       <h1 className="text-5xl font-bold">Welcome to the Fake Store App!</h1>
       <NavLink
         route="/shop"
