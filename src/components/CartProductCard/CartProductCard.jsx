@@ -35,12 +35,7 @@ const CartProductCard = ({ id, title, category, image, price, quantity }) => {
           data-testid="delete-icon"
         />
         <div className="flex h-1/4 items-center">
-          <ChangeQuantityButton
-            productId={id}
-            quantity={quantity}
-            addedToCart={true}
-            onRemove={handleRemove}
-          />
+          <ChangeQuantityButton productId={id} quantity={quantity} />
         </div>
         <h3 className="text-lg font-semibold">
           <b>Price</b>: ${price.toFixed(2)}

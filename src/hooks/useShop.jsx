@@ -1,8 +1,7 @@
-import { useReducer, useState, useEffect } from 'react';
+import { useReducer, useState, useEffect, useMemo } from 'react';
 import shopItemsReducer from './shopItemsReducer';
 
 const useShop = () => {
-  // Define a shopItemsList state variable through a reducer
   const [shopItemsList, dispatch] = useReducer(shopItemsReducer, []);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -10,23 +9,17 @@ const useShop = () => {
     const fetchShopItemsData = async () => {
       try {
         const response = await fetch('https://fakestoreapi.com/products');
-
-        if (!response.ok) {
-          throw new Error(`HTTP error: Status ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error: Status ${response.status}`);
 
         const productsData = await response.json();
 
-        // Update the shopItems list by didpatching to the reducer with the data from the api
         dispatch({
           type: 'fetch_list',
-          newList: productsData.map((product) => {
-            return {
-              ...product,
-              quantity: product.id % 10 === 0 ? 2 : 1,
-              addedToCart: product.id % 10 === 0 ? true : false,
-            };
-          }),
+          newList: productsData.map((product) => ({
+            ...product,
+            quantity: product.id % 10 === 0 ? 2 : 1,
+            addedToCart: product.id % 10 === 0,
+          })),
         });
       } catch (error) {
         console.log(error);
@@ -36,27 +29,27 @@ const useShop = () => {
     fetchShopItemsData();
   }, []);
 
-  // Dispatch the relevant reducer functions
   const toggleAddToCart = (id) => {
-    dispatch({
-      type: 'toggle-cart',
-      toggledId: id,
-    });
+    dispatch({ type: 'toggle-cart', toggledId: id });
   };
 
   const updateQuantity = (id, delta) => {
-    dispatch({
-      type: 'update-quantity',
-      updatedId: id,
-      delta: delta,
-    });
+    dispatch({ type: 'update-quantity', updatedId: id, delta });
   };
 
-  const cartItemsList = shopItemsList.filter((item) => item.addedToCart);
-  const totalItems = cartItemsList.reduce((acc, currentValue) => acc + currentValue.quantity, 0);
-  const totalCost = cartItemsList.reduce(
-    (acc, currentValue) => acc + currentValue.quantity * currentValue.price,
-    0
+  const cartItemsList = useMemo(
+    () => shopItemsList.filter((item) => item.addedToCart),
+    [shopItemsList]
+  );
+
+  const totalItems = useMemo(
+    () => cartItemsList.reduce((acc, item) => acc + item.quantity, 0),
+    [cartItemsList]
+  );
+
+  const totalCost = useMemo(
+    () => cartItemsList.reduce((acc, item) => acc + item.quantity * item.price, 0),
+    [cartItemsList]
   );
 
   const categories = ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"];
@@ -65,10 +58,13 @@ const useShop = () => {
     setSelectedCategory(categoryClick);
   };
 
-  const filterCategoryItemsList =
-    selectedCategory === 'all'
-      ? shopItemsList
-      : shopItemsList.filter((item) => item.category === selectedCategory);
+  const filterCategoryItemsList = useMemo(
+    () =>
+      selectedCategory === 'all'
+        ? shopItemsList
+        : shopItemsList.filter((item) => item.category === selectedCategory),
+    [selectedCategory, shopItemsList]
+  );
 
   return {
     shopItemsList,
