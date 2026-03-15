@@ -1,16 +1,10 @@
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
 import ChangeQuantityButton from '../ChangeQuantityButton/ChangeQuantityButton';
 
-const ShopProductCard = ({
-  id,
-  title,
-  category,
-  image,
-  price,
-  quantity,
-  addedToCart,
-  toggleAddToCart,
-  updateQuantity,
-}) => {
+const ShopProductCard = ({ id, title, category, image, price, quantity, addedToCart }) => {
+  const { toggleAddToCart } = useContext(ShopContext);
+
   return (
     <div className="flex flex-col items-center px-4 py-5 border border-emerald-100  text-lg  bg-white rounded-xl shadow-xl">
       <div className="p-5 w-full flex justify-center">
@@ -22,11 +16,7 @@ const ShopProductCard = ({
       <h1>${price.toFixed(2)}</h1>
       <div className="mt-3 px-15 w-full flex justify-center gap-5 items-center">
         <div className="flex">
-          <ChangeQuantityButton
-            productId={id}
-            updateQuantity={updateQuantity}
-            quantity={quantity}
-          />
+          <ChangeQuantityButton productId={id} quantity={quantity} />
         </div>
 
         {addedToCart ? (

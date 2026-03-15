@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 
+import ShopContext from '../../context/ShopContext';
 import ShopProductCard from './ShopProductCard';
 
 describe('ShopProductCard Component', () => {
   const mockToggleAddToCart = vi.fn();
-  const mockUpdateQuantity = vi.fn();
 
   const productProps = {
     id: 1,
@@ -16,12 +16,18 @@ describe('ShopProductCard Component', () => {
     price: 19.99,
     quantity: 2,
     addedToCart: false,
+  };
+
+  const mockContext = {
     toggleAddToCart: mockToggleAddToCart,
-    updateQuantity: mockUpdateQuantity,
   };
 
   it('renders the product information correctly', () => {
-    render(<ShopProductCard {...productProps} />);
+    render(
+      <ShopContext value={mockContext}>
+        <ShopProductCard {...productProps} />
+      </ShopContext>
+    );
 
     // Checking that the content is rendered correctly based on the props passed
     expect(screen.getByText(productProps.title)).toBeInTheDocument();
@@ -37,13 +43,21 @@ describe('ShopProductCard Component', () => {
 
   it('renders the button text correctly when item is already added to the cart', () => {
     // Render the component, where it assume the user has added the item to the cart
-    render(<ShopProductCard {...productProps} addedToCart={true} />);
+    render(
+      <ShopContext value={mockContext}>
+        <ShopProductCard {...productProps} addedToCart={true} />
+      </ShopContext>
+    );
 
     expect(screen.getByRole('button', { name: 'Remove from Cart' })).toBeInTheDocument();
   });
 
   it('calls toggleAddToCart and the button is clicked', async () => {
-    render(<ShopProductCard {...productProps} />);
+    render(
+      <ShopContext value={mockContext}>
+        <ShopProductCard {...productProps} />
+      </ShopContext>
+    );
     const user = userEvent.setup();
 
     const addToCartButton = screen.getByRole('button', { name: 'Add To Cart' });
@@ -51,19 +65,5 @@ describe('ShopProductCard Component', () => {
     await user.click(addToCartButton);
     expect(mockToggleAddToCart).toHaveBeenCalledTimes(1);
     expect(mockToggleAddToCart).toHaveBeenCalledWith(productProps.id);
-  });
-
-  it('passes correct props to ChangeQuantityButton', async () => {
-    render(<ShopProductCard {...productProps} />);
-
-    // Simlulate user clicking buttons inside the ChangeQuantityButton and verify that the arguments passed are correct
-    const minusButton = screen.getByRole('button', { name: '-' });
-    const plusButton = screen.getByRole('button', { name: '+' });
-
-    minusButton.click();
-    expect(mockUpdateQuantity).toHaveBeenCalledWith(productProps.id, -1);
-
-    plusButton.click();
-    expect(mockUpdateQuantity).toHaveBeenCalledWith(productProps.id, +1);
   });
 });

@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MemoryRouter, createMemoryRouter, RouterProvider } from 'react-router';
-import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router';
 import * as reactRouter from 'react-router';
 
+import ShopContext from '../../context/ShopContext';
 import HomePage from './HomePage';
 
 describe('HomePage rendering', () => {
@@ -11,7 +11,6 @@ describe('HomePage rendering', () => {
 
   const mockContext = {
     categories: ['all', "men's clothing", 'jewelery', 'electronics', "women's clothing"],
-    selectedCategory: 'all',
     handleSelectedCategory: mockHandleSelectedCategoryFunction,
   };
 
@@ -19,7 +18,9 @@ describe('HomePage rendering', () => {
     vi.spyOn(reactRouter, 'useOutletContext').mockReturnValue(mockContext);
     render(
       <MemoryRouter>
-        <HomePage />
+        <ShopContext value={mockContext}>
+          <HomePage />
+        </ShopContext>
       </MemoryRouter>
     );
 

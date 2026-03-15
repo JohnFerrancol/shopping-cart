@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
 
+import ShopContext from '../../context/ShopContext';
 import ChangeQuantityButton from './ChangeQuantityButton';
 
 describe('ChangeQuantityButton component', () => {
@@ -10,7 +11,9 @@ describe('ChangeQuantityButton component', () => {
     const mockUpdateQuantity = vi.fn();
     render(
       <MemoryRouter>
-        <ChangeQuantityButton productId={1} updateQuantity={mockUpdateQuantity} quantity={2} />
+        <ShopContext value={{ updateQuantity: mockUpdateQuantity }}>
+          <ChangeQuantityButton productId={1} quantity={2} />
+        </ShopContext>
       </MemoryRouter>
     );
 
@@ -24,7 +27,9 @@ describe('ChangeQuantityButton component', () => {
     const mockUpdateQuantity = vi.fn();
     render(
       <MemoryRouter>
-        <ChangeQuantityButton productId={1} updateQuantity={mockUpdateQuantity} quantity={2} />
+        <ShopContext value={{ updateQuantity: mockUpdateQuantity }}>
+          <ChangeQuantityButton productId={1} quantity={2} />
+        </ShopContext>
       </MemoryRouter>
     );
     const user = userEvent.setup();

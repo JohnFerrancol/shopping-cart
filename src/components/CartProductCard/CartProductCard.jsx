@@ -1,16 +1,10 @@
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
 import { ImCross } from 'react-icons/im';
 import ChangeQuantityButton from '../ChangeQuantityButton/ChangeQuantityButton';
 
-const CartProductCard = ({
-  id,
-  title,
-  category,
-  image,
-  price,
-  quantity,
-  toggleAddToCart,
-  updateQuantity,
-}) => {
+const CartProductCard = ({ id, title, category, image, price, quantity }) => {
+  const { toggleAddToCart } = useContext(ShopContext);
   return (
     <div className="flex justify-between  px-4 py-5 border border-emerald-100  text-lg text-emerald-900 bg-white rounded-xl shadow-xl">
       <div className="flex gap-4">
@@ -30,11 +24,7 @@ const CartProductCard = ({
           data-testid="delete-icon"
         />
         <div className="flex h-1/4 items-center">
-          <ChangeQuantityButton
-            productId={id}
-            updateQuantity={updateQuantity}
-            quantity={quantity}
-          />
+          <ChangeQuantityButton productId={id} quantity={quantity} />
         </div>
         <h3 className="text-lg font-semibold">
           <b>Price</b>: ${price.toFixed(2)}

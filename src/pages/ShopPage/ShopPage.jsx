@@ -1,15 +1,10 @@
-import { useOutletContext } from 'react-router';
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
 import ShopProductCard from '../../components/ShopProductCard/ShopProductCard';
 
 const ShopPage = () => {
-  const {
-    categories,
-    selectedCategory,
-    handleSelectedCategory,
-    filterCategoryItemsList,
-    toggleAddToCart,
-    updateQuantity,
-  } = useOutletContext();
+  const { categories, selectedCategory, handleSelectedCategory, filterCategoryItemsList } =
+    useContext(ShopContext);
 
   return (
     <div className="flex-1 px-15">
@@ -40,12 +35,7 @@ const ShopPage = () => {
 
       <div className="py-5 grid grid-cols-4 grid-rows-5 gap-x-10 gap-y-5">
         {filterCategoryItemsList.map((shopItem) => (
-          <ShopProductCard
-            key={shopItem.id}
-            {...shopItem}
-            toggleAddToCart={toggleAddToCart}
-            updateQuantity={updateQuantity}
-          />
+          <ShopProductCard key={shopItem.id} {...shopItem} />
         ))}
       </div>
     </div>

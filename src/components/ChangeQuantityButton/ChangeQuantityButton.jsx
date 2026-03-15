@@ -1,4 +1,9 @@
-const ChangeQuantityButton = ({ productId, updateQuantity, quantity }) => {
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
+
+const ChangeQuantityButton = ({ productId, quantity }) => {
+  const { updateQuantity } = useContext(ShopContext);
+
   return (
     <>
       <button

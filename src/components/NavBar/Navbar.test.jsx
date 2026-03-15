@@ -2,13 +2,16 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { MemoryRouter } from 'react-router';
 
+import ShopContext from '../../context/ShopContext';
 import Navbar from './Navbar';
 
 describe('NavBar Component', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
-        <Navbar noOfItems={4} />
+        <ShopContext value={{ totalItems: 4 }}>
+          <Navbar />
+        </ShopContext>
       </MemoryRouter>
     );
   });
@@ -30,7 +33,9 @@ describe('NavBar Component', () => {
   it('does not show the cart count when there is no items in the cart', () => {
     render(
       <MemoryRouter>
-        <Navbar noOfItems={0} />
+        <ShopContext value={{ totalItems: 0 }}>
+          <Navbar />
+        </ShopContext>
       </MemoryRouter>
     );
 

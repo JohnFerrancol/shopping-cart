@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import * as reactRouter from 'react-router';
 
+import ShopContext from '../../context/ShopContext';
 import ShopPage from './ShopPage';
 
 describe('TestPage rendering', () => {
@@ -39,7 +40,11 @@ describe('TestPage rendering', () => {
     // Spy on useOutletContext and return mockContext
     vi.spyOn(reactRouter, 'useOutletContext').mockReturnValue(mockContext);
 
-    render(<ShopPage />);
+    render(
+      <ShopContext value={mockContext}>
+        <ShopPage />
+      </ShopContext>
+    );
 
     expect(screen.getByText('Item 1')).toBeInTheDocument();
     expect(screen.getByText('Item 2')).toBeInTheDocument();

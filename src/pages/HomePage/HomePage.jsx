@@ -1,8 +1,9 @@
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
 import NavLink from '../../components/NavLink/NavLink';
-import { useOutletContext } from 'react-router';
 
 const HomePage = () => {
-  const { categories, selectedCategory, handleSelectedCategory } = useOutletContext();
+  const { categories, handleSelectedCategory } = useContext(ShopContext);
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-8">

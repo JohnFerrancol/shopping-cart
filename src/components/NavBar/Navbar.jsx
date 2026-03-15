@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import ShopContext from '../../context/ShopContext';
 import NavLink from '../NavLink/NavLink';
 import { FaShoppingCart } from 'react-icons/fa';
 import { PiBagFill } from 'react-icons/pi';
 
-const Navbar = ({ noOfItems }) => {
+const Navbar = () => {
+  const { totalItems } = useContext(ShopContext);
+
   return (
     <nav className="flex justify-between px-8 py-6 bg-green-500 shadow-xl text-white rounded-2xl">
       <NavLink
@@ -22,7 +26,7 @@ const Navbar = ({ noOfItems }) => {
           route="/cart"
           content={
             <div className="flex gap-2 items-center">
-              <p>Cart {noOfItems > 0 ? `(${noOfItems})` : ''}</p>
+              <p>Cart {totalItems > 0 ? `(${totalItems})` : ''}</p>
               <FaShoppingCart className="text-white" size={30} />
             </div>
           }
