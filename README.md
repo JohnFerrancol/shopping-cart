@@ -1,6 +1,6 @@
 # Shopping Cart
 
-[Live Demo](#)<br/><br/>
+[Live Demo](https://shopping-cart-theta-seven-94.vercel.app/cart)<br/><br/>
 [![The Odin Project](https://img.shields.io/badge/The%20Odin%20Project-A9792B?logo=theodinproject&logoColor=fff)](#)
 
 ## Overview
