@@ -19,21 +19,16 @@ const ShopProductCard = ({ id, title, category, image, price, quantity, addedToC
           <ChangeQuantityButton productId={id} quantity={quantity} />
         </div>
 
-        {addedToCart ? (
-          <button
-            onClick={() => toggleAddToCart(id)}
-            className="rounded-xl px-5 py-2 bg-white text-green-500 border border-green-500 shadow-lg"
-          >
-            Remove from Cart
-          </button>
-        ) : (
-          <button
-            onClick={() => toggleAddToCart(id)}
-            className="rounded-xl px-5 py-2 bg-green-500 text-white shadow-lg"
-          >
-            Add To Cart
-          </button>
-        )}
+        <button
+          onClick={() => toggleAddToCart(id)}
+          className={
+            addedToCart
+              ? 'rounded-xl px-5 py-2 bg-white text-green-500 border border-green-500 shadow-lg'
+              : 'rounded-xl px-5 py-2 bg-green-500 text-white shadow-lg'
+          }
+        >
+          {addedToCart ? 'Remove from Cart' : 'Add To Cart'}
+        </button>
       </div>
     </div>
   );
